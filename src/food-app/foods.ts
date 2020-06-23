@@ -1,9 +1,12 @@
-class Foods implements Foodsable {
+import { Foodsable } from './interfaces.js'
+import { Food } from './food.js'
+
+export class Foods implements Foodsable {
   private static instance: Foods
   elements = document.querySelectorAll<HTMLDivElement>('.food')
   private _activeElements: HTMLDivElement[] = []
   private _activeElementsScore: number[] = []
-  get activeElements() {
+  get activeElements(): HTMLDivElement[] {
     this._activeElements = []
     this.elements.forEach((element) => {
       if (element.classList.contains('food--active')) {
@@ -12,7 +15,7 @@ class Foods implements Foodsable {
     })
     return this._activeElements
   }
-  get activeElementsScore() {
+  get activeElementsScore(): number[] {
     this._activeElementsScore = []
     this.activeElements.forEach((element) => {
       const foodScore = element.querySelector('.food__score')
@@ -27,7 +30,7 @@ class Foods implements Foodsable {
       new Food(element)
     })
   }
-  static getInstance() {
+  static getInstance(): Foods {
     if (!Foods.instance) {
       Foods.instance = new Foods()
     }

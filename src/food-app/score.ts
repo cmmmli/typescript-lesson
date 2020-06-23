@@ -1,18 +1,19 @@
-class Score implements Scoreable {
+import { Scoreable } from './interfaces.js'
+import { Foods } from './foods.js'
+
+export class Score implements Scoreable {
   private static instance: Score
-  get totalScore() {
+  get totalScore(): number {
     const foods = Foods.getInstance()
     return foods.activeElementsScore.reduce((total, score) => total + score, 0)
   }
-  render() {
+  render(): void {
     const scoreNumber = document.querySelector('.score__number')
     if (scoreNumber) {
       scoreNumber.textContent = String(this.totalScore)
     }
   }
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
-  static getInstance() {
+  static getInstance(): Score {
     if (!Score.instance) {
       Score.instance = new Score()
     }
